@@ -1,5 +1,6 @@
-import isOpen from "./utils/isOpen.js";
+// import isOpen from "./utils/isOpen.js";
 import { formatNumber, formatCurrency } from "./utils/numbers.js";
+const isOpen = true;
 
 const body = document.body;
 const main = document.querySelector("main");
