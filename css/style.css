@@ -7,7 +7,8 @@
     font-family: "Poppins", Verdana, Geneva, Tahoma, sans-serif;
 }
 
-body {
+body,
+html {
     min-height: 100vh;
     height: auto;
 }
@@ -104,9 +105,7 @@ h1 {
     font-size: 0.8rem;
     color: #3b3b3b;
     padding: 0 0.5rem;
-    border-radius: 50px;
     cursor: pointer;
-    transition: 0.5s;
 }
 
 #pages li:active {
@@ -114,11 +113,23 @@ h1 {
 }
 
 #pages li.active {
-    border-bottom: solid 1px #ffb048;
+    border-bottom: solid 2px #ffa52f;
 }
 
 main {
-    padding: 1rem;
+    display: flex;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    width: 100%;
+    overflow-x: scroll;
+}
+
+main {
+    scrollbar-width: none; /* Firefox */
+}
+
+main::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Edge */
 }
 
 main h2 {
@@ -128,11 +139,9 @@ main h2 {
 }
 
 main section {
-    display: none;
-}
-
-main section.active {
-    display: block;
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+    padding: 1rem;
 }
 
 .list {
@@ -208,6 +217,7 @@ main section.active {
     padding: 1rem;
     background-color: #ffd089;
     text-align: center;
+    text-wrap: wrap;
 }
 
 #footer a {
@@ -245,6 +255,14 @@ main section.active {
 
 #add-ingredients h2 {
     font-size: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+#add-ingredients h2 span {
+    font-size: 0.8rem;
+    font-weight: 500;
 }
 
 #add-ingredients p {
@@ -401,7 +419,7 @@ main section.active {
     padding: 0.1rem;
     transform-origin: top;
     transform: scaleY(0);
-    transition: 0.25s;
+    transition: 0.5s;
 }
 
 #details-total p {
@@ -430,11 +448,12 @@ main section.active {
     background-color: #00a700;
 }
 
-/* .taxa {
+.taxa {
+    margin-top: 0.5rem;
     text-align: center;
     font-size: 0.8rem;
     color: #444;
-} */
+}
 
 #modal {
     padding: 0.5rem;
@@ -446,7 +465,7 @@ main section.active {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    transition: 0.5s;
+    transition: 0.25s;
     z-index: 11;
 }
 
@@ -457,4 +476,31 @@ main section.active {
 #text {
     color: #fff;
     flex: 1;
+}
+
+#float-hour {
+    padding: 0.25rem 0.5rem;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    width: fit-content;
+    position: fixed;
+    top: 0.5rem;
+    left: 0.5rem;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+#float-hour.show {
+    top: 0.5rem;
+    opacity: 1;
+}
+
+#float-hour.open {
+    background-color: rgb(0, 212, 0);
+}
+
+#float-hour.close {
+    background-color: rgba(202, 0, 0);
 }

@@ -114,12 +114,12 @@
                                 <div class="image-card">
                                     <img
                                         src="assets/crepes/salgados/pizza_de_calabresa.jpg"
-                                        alt="pizza de calabresa"
+                                        alt="pizza com calabresa"
                                     />
                                 </div>
                                 <div class="info">
                                     <h3 class="name-crepe">
-                                        Pizza de calabresa
+                                        Pizza com calabresa
                                         <span class="price">R$15,00</span>
                                     </h3>
                                     <p class="description">
@@ -130,7 +130,7 @@
                             </div>
                             <button
                                 class="add-cart"
-                                data-name="pizza de calabresa"
+                                data-name="pizza com calabresa"
                                 data-category="salgado"
                             >
                                 <i class="fas fa-cart-plus"></i>
@@ -699,9 +699,7 @@
                                         Suco de maracuja
                                         <span class="price"> R$6,00 </span>
                                     </h3>
-                                    <p class="description">
-                                        Suco de maracuja 300ml
-                                    </p>
+                                    <p class="description">300ml</p>
                                 </div>
                             </div>
                             <button
@@ -725,9 +723,7 @@
                                         Suco de manga
                                         <span class="price"> R$6,00 </span>
                                     </h3>
-                                    <p class="description">
-                                        Suco de manga 300ml
-                                    </p>
+                                    <p class="description">300ml</p>
                                 </div>
                             </div>
                             <button
@@ -752,9 +748,7 @@
                                         Suco de acerola
                                         <span class="price"> R$6,00 </span>
                                     </h3>
-                                    <p class="description">
-                                        Suco de acerola 300ml
-                                    </p>
+                                    <p class="description">300ml</p>
                                 </div>
                             </div>
                             <button
@@ -779,9 +773,7 @@
                                         Suco de morango
                                         <span class="price"> R$6,00 </span>
                                     </h3>
-                                    <p class="description">
-                                        Suco de morango 300ml
-                                    </p>
+                                    <p class="description">300ml</p>
                                 </div>
                             </div>
                             <button
@@ -812,7 +804,7 @@
 
         <section id="overlay" class="hide">
             <article class="modal hide" id="add-ingredients">
-                <h2>Adicionais</h2>
+                <h2>Adicionais <span class="option">(opcional)</span></h2>
 
                 <div id="savorys" class="salgado hide">
                     <p class="add">
@@ -870,7 +862,7 @@
                         </label>
                     </p>
                     <p class="add">
-                        <label for="mussarela">
+                        <label for="mussarela-savorys">
                             <span class="name">Mussarela</span>
                             <span class="check">
                                 <span class="price-ingredient">R$3,00</span>
@@ -927,7 +919,7 @@
                         </label>
                     </p>
                     <p class="add">
-                        <label for="mussarela">
+                        <label for="mussarela-candy">
                             Mussarela
                             <span class="check">
                                 <span class="price-ingredient">R$3,00</span>
@@ -1064,12 +1056,14 @@
                     </div>
                     <button id="confirm-food">Confirmar pedido</button>
                 </footer>
-                <!-- <p class="taxa">Taxa de entrega: R$3,00</p> -->
+                <p class="taxa">Taxa de entrega: R$3,00</p>
             </article>
         </section>
 
         <article id="modal">
             <p id="text"></p>
         </article>
+
+        <article id="float-hour">18:00 - 22:00 | Qui - Dom</article>
     </body>
 </html>

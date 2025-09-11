@@ -1,3 +1,4 @@
+// Variaeis
 // import isOpen from "./utils/isOpen.js";
 import { formatNumber, formatCurrency } from "./utils/numbers.js";
 const isOpen = true;
@@ -5,6 +6,7 @@ const isOpen = true;
 const body = document.body;
 const main = document.querySelector("main");
 const hour = document.querySelector("#hour");
+const floatHour = document.querySelector("#float-hour");
 const navigationButtons = document.querySelectorAll("#pages li");
 const pages = document.querySelectorAll("main section");
 const overlay = document.querySelector("#overlay");
@@ -29,7 +31,9 @@ const cart = [];
 let food = {};
 let ingredients;
 let time;
+let currentIndex = 0;
 
+// Reseta variaveis e retira elementos da tela
 const fullReset = () => {
     overlay.classList.add("hide");
     body.classList.remove("no-scroll");
@@ -39,6 +43,7 @@ const fullReset = () => {
     food = {};
 };
 
+// Mostra o modal e seus respequitivos adicionais
 const showAddIngredients = (button) => {
     const category = button.getAttribute("data-category");
     const name = button.getAttribute("data-name");
@@ -65,7 +70,7 @@ const addCart = (ingredients, price) => {
     if (!ingredients) {
         cart.push(food);
         showModal("Item Adicionado!", "#00b400");
-        lengthCart.textContent = cart.length;
+        updateLengthCart();
         fullReset();
         return;
     }
@@ -118,8 +123,12 @@ const addItemToCart = () => {
 
     ingredients.querySelectorAll("input").forEach((cb) => (cb.checked = false));
 
-    lengthCart.textContent = cart.length;
+    updateLengthCart();
     fullReset();
+};
+
+const updateLengthCart = () => {
+    lengthCart.textContent = cart.length;
 };
 
 const addIngredientsList = (inputs) => {
@@ -184,7 +193,7 @@ const showItemsCart = () => {
         listItems.appendChild(itemElement);
     });
 
-    lengthCart.textContent = cart.length;
+    updateLengthCart();
     calulationTotalValue();
 };
 
@@ -247,7 +256,7 @@ const confirmToFood = () => {
     const food = getFood();
     console.log(getFood());
 
-    const message = `Boa noite! Me chamo ${name} e gostaria de fazer uma pedido;\n\nPedido: ${food};\n\nNo valor final de: ${totalValue.textContent};\n\nPara o endereço: ${adress};\n\nForma de pagamento: ${pagamet}`;
+    const message = `Boa noite! Me chamo ${name} e gostaria de fazer um pedido;\n\nPedido: ${food};\n\nNo valor final de: ${totalValue.textContent};\n\nPara o endereço: ${adress};\n\nForma de pagamento: ${pagamet}`;
 
     sendMessage(message);
 
@@ -295,6 +304,36 @@ const showModal = (message, color) => {
     }, 2000);
 };
 
+const listenerHour = new IntersectionObserver((e) => {
+    const isDisplay = e[0].isIntersecting;
+    if (isDisplay) {
+        floatHour.classList.remove("show");
+    } else {
+        floatHour.classList.add("show");
+    }
+});
+
+// Feito por IA
+const observer = new IntersectionObserver(
+    (entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                const index = Array.from(pages).indexOf(entry.target);
+                console.log(index);
+                navigationButtons.forEach((btn) =>
+                    btn.classList.remove("active")
+                );
+                navigationButtons[index].classList.add("active");
+                console.log(navigationButtons[index]);
+            }
+        });
+    },
+    {
+        root: main,
+        threshold: 0.6, // 60% visível já conta como "ativa"
+    }
+);
+
 // EVENTOS
 confirmFood.addEventListener("click", confirmToFood);
 
@@ -308,15 +347,25 @@ main.addEventListener("click", ({ target }) => {
     showAddIngredients(btn);
 });
 
-navigationButtons.forEach((button) => {
-    button.addEventListener("click", function () {
-        const pageActive = "section." + this.getAttribute("data-category");
+main.addEventListener("wheel", (e) => {
+    if (e.deltaY > 0 && currentIndex < sections.length - 1) {
+        currentIndex++;
+    } else if (e.deltaY < 0 && currentIndex > 0) {
+        currentIndex--;
+    }
+    pages[currentIndex].scrollIntoView({ behavior: "smooth" });
+});
 
-        document.querySelector("li.active").classList.remove("active");
-        document.querySelector("section.active").classList.remove("active");
+navigationButtons.forEach((button, index) => {
+    button.addEventListener("click", function (e) {
+        e.preventDefault(); // evita scroll da página
+        const targetPage = pages[index];
+        main.scrollTo({
+            left: targetPage.offsetLeft,
+            behavior: "smooth",
+        });
 
         this.classList.add("active");
-        document.querySelector(pageActive).classList.add("active");
     });
 });
 
@@ -333,4 +382,9 @@ totalValueButton.addEventListener("click", () =>
     detailsTotal.classList.toggle("show")
 );
 
+floatHour.className = isOpen ? "open" || floatHour : "close";
+floatHour.textContent = isOpen ? "Aberto" || floatHour : "Fechado";
 hour.className = isOpen ? "open" : "close";
+listenerHour.observe(hour);
+
+pages.forEach((section) => observer.observe(section));
