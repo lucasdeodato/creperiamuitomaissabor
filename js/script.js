@@ -1,6 +1,7 @@
 // Variaeis
-// import isOpen from "./utils/isOpen.js";
-import { formatNumber, formatCurrency } from "./utils/numbers.js";
+import { additional, produtos, deliveryAdress } from "./utils/data.js";
+import { isNearClose } from "./utils/isOpen.js";
+import { formatCurrency } from "./utils/numbers.js";
 const isOpen = true;
 
 const body = document.body;
@@ -8,7 +9,6 @@ const main = document.querySelector("main");
 const hour = document.querySelector("#hour");
 const floatHour = document.querySelector("#float-hour");
 const navigationButtons = document.querySelectorAll("#pages li");
-const pages = document.querySelectorAll("main section");
 const overlay = document.querySelector("#overlay");
 const cartItems = document.querySelector("#cart");
 const listItems = document.querySelector("#list-items-cart");
@@ -16,22 +16,125 @@ const buttonCart = document.querySelector("#button-cart");
 const lengthCart = document.querySelector("#length-cart");
 const nameClient = document.querySelector("#name-client");
 const adressClient = document.querySelector("#adress-client");
+const notAdress = document.querySelector("#not-adress");
 const pagamentClient = document.querySelector("#pagament-client");
+const deliveryPrice = document.querySelector("#price-delivery");
 const totalValue = document.querySelector("#total-value");
 const detailsTotal = document.querySelector("#details-total");
 const addIngredients = document.querySelector("#add-ingredients");
+const addList = document.querySelector("#list-add");
 const valueEnd = document.querySelector("#value-end");
 const confirmAddCart = document.querySelector("#confirm-add-cart");
 const totalValueButton = document.querySelector("#total-value-button");
 const confirmFood = document.querySelector("#confirm-food");
 const modal = document.querySelector("#modal");
 const text = document.querySelector("#text");
+const checkBoxNotAdd = document.querySelector("#not-add");
 
 const cart = [];
 let food = {};
 let ingredients;
 let time;
-let currentIndex = 0;
+let pages;
+let actualPrice;
+let priceOrigin = 0;
+let deliveryValue = 3;
+let endValue = 0;
+let adress;
+
+const showProducts = () => {
+    const createList = (list) => {
+        const div = document.createElement("div");
+        div.classList.add("list");
+
+        list.forEach((card) => {
+            const article = document.createElement("article");
+            article.classList.add("card");
+            article.innerHTML = `
+                <div class="details">
+                    <div class="image-card">
+                        <img
+                            src="${card.imagem}"
+                            alt="${card.titulo}"
+                        />
+                    </div>
+                    <div class="info">
+                        <h3 class="name-crepe">
+                            ${card.titulo}
+                            <span class="price">${formatCurrency(
+                                card.preco
+                            )}</span>
+                        </h3>
+                        <p class="description">
+                            ${card.descricao}
+                        </p>
+                    </div>
+                </div>
+            `;
+
+            const button = document.createElement("button");
+            button.classList.add("add-cart");
+            button.innerHTML = `<i class="fas fa-cart-plus"></i>`;
+
+            button.addEventListener("click", () => {
+                showAddIngredients(card);
+            });
+
+            article.appendChild(button);
+
+            div.appendChild(article);
+        });
+
+        return div;
+    };
+
+    produtos.forEach((produto) => {
+        const section = document.createElement("section");
+        section.innerHTML = `<h2>${produto.titulo}</h2>`;
+
+        const list = createList(produto.produtos);
+        section.appendChild(list);
+
+        main.appendChild(section);
+    });
+};
+
+const showAdd = () => {
+    additional.forEach((itemAdd) => {
+        const div = document.createElement("div");
+        div.className = itemAdd.class + " hide";
+
+        itemAdd.adds.forEach((item) => {
+            const divAdd = document.createElement("div");
+            divAdd.classList.add("add");
+
+            const label = document.createElement("label");
+            label.for = item.name;
+
+            const spanName = document.createElement("span");
+            spanName.textContent = item.name;
+            label.appendChild(spanName);
+
+            const spanPrice = document.createElement("span");
+            spanPrice.innerHTML = `<span>${formatCurrency(item.price)}<span>`;
+
+            const input = document.createElement("input");
+            input.type = "checkbox";
+            input.addEventListener("change", () => {
+                calulation(input, item.price);
+            });
+            spanPrice.appendChild(input);
+
+            label.appendChild(spanPrice);
+
+            divAdd.appendChild(label);
+
+            div.appendChild(divAdd);
+        });
+
+        addList.appendChild(div);
+    });
+};
 
 // Reseta variaveis e retira elementos da tela
 const fullReset = () => {
@@ -44,17 +147,24 @@ const fullReset = () => {
 };
 
 // Mostra o modal e seus respequitivos adicionais
-const showAddIngredients = (button) => {
-    const category = button.getAttribute("data-category");
-    const name = button.getAttribute("data-name");
-    const price = button.parentElement.querySelector(".price").textContent;
+const showAddIngredients = (card) => {
+    if (!isOpen) {
+        showModal("Creperia fechada!", "#ff2828");
+        return;
+    }
 
-    ingredients = category
-        ? addIngredients.querySelector(`.${category}`)
-        : null;
+    const category = card.categoria;
+    const name = card.titulo;
+    priceOrigin = card.preco;
+
+    if (category != "bebidas") {
+        ingredients = addIngredients.querySelector(`.${category}`);
+    } else {
+        ingredients = null;
+    }
 
     food.name = name;
-    food.price = price;
+    food.price = priceOrigin;
 
     if (ingredients) {
         overlay.classList.remove("hide");
@@ -63,7 +173,7 @@ const showAddIngredients = (button) => {
         ingredients.classList.remove("hide");
     }
 
-    addCart(ingredients, price);
+    addCart(ingredients, priceOrigin);
 };
 
 const addCart = (ingredients, price) => {
@@ -75,42 +185,32 @@ const addCart = (ingredients, price) => {
         return;
     }
 
-    let actualPrice = formatNumber(price);
-
-    const calulation = (checkBox) => {
-        if (actualPrice < price) return;
-
-        const addPrice = formatNumber(
-            checkBox.previousElementSibling.textContent
-        );
-
-        const incrementValue = (value, increment) => {
-            return value + increment;
-        };
-
-        const decrementValue = (value, decrement) => {
-            return value - decrement;
-        };
-
-        if (checkBox.checked) {
-            price = incrementValue(actualPrice, addPrice);
-        } else {
-            price = decrementValue(actualPrice, addPrice);
-        }
-
-        actualPrice = price;
-
-        setValueEnd(price);
-        food.price = valueEnd.textContent;
-    };
-
-    ingredients.querySelectorAll("input").forEach((checkBox) =>
-        checkBox.addEventListener("change", function () {
-            calulation(this);
-        })
-    );
+    actualPrice = price;
 
     setValueEnd(price);
+};
+
+const calulation = (checkBox, price) => {
+    const addPrice = price;
+    console.log(actualPrice);
+    console.log(addPrice);
+
+    const incrementValue = (value, increment) => {
+        return value + increment;
+    };
+
+    const decrementValue = (value, decrement) => {
+        return value - decrement;
+    };
+
+    if (checkBox.checked) {
+        actualPrice = incrementValue(actualPrice, addPrice);
+    } else {
+        actualPrice = decrementValue(actualPrice, addPrice);
+    }
+
+    setValueEnd(actualPrice);
+    food.price = actualPrice;
 };
 
 const setValueEnd = (price) => (valueEnd.textContent = formatCurrency(price));
@@ -118,10 +218,16 @@ const setValueEnd = (price) => (valueEnd.textContent = formatCurrency(price));
 const addItemToCart = () => {
     food.ingredients = addIngredientsList();
 
+    if (checkBoxNotAdd.checked) {
+        food.ingredients = [];
+        food.price = priceOrigin;
+    }
+
     cart.push(food);
     showModal("Item Adicionado!", "#00b400");
 
     ingredients.querySelectorAll("input").forEach((cb) => (cb.checked = false));
+    checkBoxNotAdd.checked = false;
 
     updateLengthCart();
     fullReset();
@@ -131,14 +237,13 @@ const updateLengthCart = () => {
     lengthCart.textContent = cart.length;
 };
 
-const addIngredientsList = (inputs) => {
-    const ingredientsList = [];
+const addIngredientsList = () => {
+    let ingredientsList = [];
     ingredients.querySelectorAll("input").forEach((cb) => {
         if (cb.checked) {
-            const ingredient = cb.id
-                .replace("-", " ")
-                .replace("savorys", "")
-                .replace("candy", "");
+            const ingredient =
+                cb.parentElement.previousElementSibling.textContent;
+
             ingredientsList.push(ingredient);
         }
     });
@@ -168,13 +273,13 @@ const showItemsCart = () => {
             string = "";
         }
 
-        const price = formatNumber(item.price);
-
         itemElement.innerHTML = `
             <div class="infos">
                     <h3 class="name-item">
                         ${item.name}
-                    <span class="price-item">${formatCurrency(price)}</span>
+                    <span class="price-item">${formatCurrency(
+                        item.price
+                    )}</span>
                     </h3>
                     ${ingredientsList}
             </div>
@@ -206,17 +311,17 @@ const removeItem = (index) => {
 };
 
 const calulationTotalValue = () => {
-    const value = cart.reduce(
-        (count, value) => count + formatNumber(value.price),
-        0
-    );
+    const value = cart.reduce((count, value) => count + value.price, 0);
 
     updateTotalValue(value);
 };
 
 const updateTotalValue = (price) => {
-    totalValue.textContent = formatCurrency(price + 3);
+    endValue = price + deliveryValue;
+    totalValue.textContent = formatCurrency(endValue);
     detailsTotal.querySelector(".food").textContent = formatCurrency(price);
+    detailsTotal.querySelector(".delivery").textContent =
+        formatCurrency(deliveryValue);
 };
 
 const confirmToFood = () => {
@@ -225,7 +330,7 @@ const confirmToFood = () => {
         return;
     }
 
-    if (formatNumber(totalValue.textContent) == 3) {
+    if (cart.length == 0) {
         showModal("Carrinho vazio.", "#ff2828");
         return;
     }
@@ -237,9 +342,11 @@ const confirmToFood = () => {
 
     nameClient.nextElementSibling.classList.remove("show");
 
-    if (adressClient.value == "") {
-        adressClient.nextElementSibling.classList.add("show");
-        return;
+    if (!notAdress.checked) {
+        if (adressClient.value == "") {
+            adressClient.nextElementSibling.classList.add("show");
+            return;
+        }
     }
 
     adressClient.nextElementSibling.classList.remove("show");
@@ -252,11 +359,19 @@ const confirmToFood = () => {
     }
 
     const name = nameClient.value;
-    const adress = adressClient.value;
+    adress = adressClient.value;
     const food = getFood();
     console.log(getFood());
 
-    const message = `Boa noite! Me chamo ${name} e gostaria de fazer um pedido;\n\nPedido: ${food};\n\nNo valor final de: ${totalValue.textContent};\n\nPara o endereço: ${adress};\n\nForma de pagamento: ${pagamet}`;
+    if (adress) {
+        adress = "Para o endereço: " + adress;
+    } else {
+        adress = "Retirada no local";
+    }
+
+    const message = `Boa noite! Me chamo ${name} e gostaria de fazer um pedido;\n\nPedido: ${food};\n\nNo valor final de: ${formatCurrency(
+        endValue
+    )};\n\n${adress};\n\nForma de pagamento: ${pagamet}`;
 
     sendMessage(message);
 
@@ -304,6 +419,28 @@ const showModal = (message, color) => {
     }, 2000);
 };
 
+const observerHour = () => {
+    if (!isNearClose) return;
+    setInterval(() => {
+        const date = new Date();
+        const minutesOrClose = date.getMinutes();
+        const seconds = date.getSeconds();
+        const timeClose = 60 - minutesOrClose;
+
+        if (timeClose <= 0) {
+            floatHour.classList.remove("show");
+            hour.className = "close";
+            showModal("A creperia fechou!", "#ff2828");
+            setTimeout(() => window.location.reload(), 2000);
+        } else if (timeClose == 1) {
+            floatHour.classList.add("show");
+            floatHour.textContent = `Tempo restante: ${60 - seconds} segundos`;
+        } else {
+            floatHour.textContent = `Tempo restante: ${timeClose} minutos`;
+        }
+    }, 500);
+};
+
 const listenerHour = new IntersectionObserver((e) => {
     const isDisplay = e[0].isIntersecting;
     if (isDisplay) {
@@ -319,12 +456,10 @@ const observer = new IntersectionObserver(
         entries.forEach((entry) => {
             if (entry.isIntersecting) {
                 const index = Array.from(pages).indexOf(entry.target);
-                console.log(index);
                 navigationButtons.forEach((btn) =>
                     btn.classList.remove("active")
                 );
                 navigationButtons[index].classList.add("active");
-                console.log(navigationButtons[index]);
             }
         });
     },
@@ -337,24 +472,14 @@ const observer = new IntersectionObserver(
 // EVENTOS
 confirmFood.addEventListener("click", confirmToFood);
 
-main.addEventListener("click", ({ target }) => {
-    if (!isOpen) {
-        showModal("Creperia fechada!", "#ff2828");
-        return;
-    }
-    const btn = target;
-    if (!btn.classList.contains("add-cart")) return;
-    showAddIngredients(btn);
-});
-
-main.addEventListener("wheel", (e) => {
-    if (e.deltaY > 0 && currentIndex < sections.length - 1) {
-        currentIndex++;
-    } else if (e.deltaY < 0 && currentIndex > 0) {
-        currentIndex--;
-    }
-    pages[currentIndex].scrollIntoView({ behavior: "smooth" });
-});
+// main.addEventListener("wheel", (e) => {
+//     if (e.deltaY > 0 && currentIndex < pages.length - 1) {
+//         currentIndex++;
+//     } else if (e.deltaY < 0 && currentIndex > 0) {
+//         currentIndex--;
+//     }
+//     pages[currentIndex].scrollIntoView({ behavior: "smooth" });
+// });
 
 navigationButtons.forEach((button, index) => {
     button.addEventListener("click", function (e) {
@@ -364,9 +489,47 @@ navigationButtons.forEach((button, index) => {
             left: targetPage.offsetLeft,
             behavior: "smooth",
         });
-
-        this.classList.add("active");
     });
+});
+
+adressClient.addEventListener("input", () => {
+    const value = adressClient.value.toLowerCase();
+    const isMoreValue = deliveryAdress.some((adress) => {
+        if (value.includes(adress)) {
+            return true;
+        } else {
+            return false;
+        }
+    });
+
+    deliveryValue = isMoreValue ? 5 : 3;
+
+    calulationTotalValue();
+    deliveryPrice.textContent =
+        value == "" ? "R$3,00 - R$5,00" : formatCurrency(deliveryValue);
+});
+
+notAdress.addEventListener("change", () => {
+    const boxInputAdress = adressClient.parentElement;
+    const labelNotAdress = notAdress.parentElement;
+    if (notAdress.checked) {
+        deliveryValue = 0;
+        adressClient.disabled = true;
+
+        boxInputAdress.classList.add("disabled");
+        labelNotAdress.style.color = "#000";
+        calulationTotalValue();
+        deliveryPrice.textContent = formatCurrency(deliveryValue);
+        adressClient.value = "";
+    } else {
+        deliveryValue = 3;
+        adressClient.disabled = false;
+
+        boxInputAdress.classList.remove("disabled");
+        labelNotAdress.style.color = "#444";
+        calulationTotalValue();
+        deliveryPrice.textContent = "R$3,00 - R$5,00";
+    }
 });
 
 overlay.addEventListener("click", function ({ target }) {
@@ -385,6 +548,16 @@ totalValueButton.addEventListener("click", () =>
 floatHour.className = isOpen ? "open" || floatHour : "close";
 floatHour.textContent = isOpen ? "Aberto" || floatHour : "Fechado";
 hour.className = isOpen ? "open" : "close";
+
 listenerHour.observe(hour);
 
-pages.forEach((section) => observer.observe(section));
+observerHour();
+
+window.onload = () => {
+    showProducts();
+
+    pages = main.querySelectorAll("section");
+    pages.forEach((section) => observer.observe(section));
+
+    showAdd();
+};
