@@ -165,6 +165,7 @@ const showAddIngredients = (card) => {
 
     food.name = name;
     food.price = priceOrigin;
+    food.category = category;
 
     if (ingredients) {
         overlay.classList.remove("hide");
@@ -179,6 +180,7 @@ const showAddIngredients = (card) => {
 const addCart = (ingredients, price) => {
     if (!ingredients) {
         cart.push(food);
+        console.log(cart);
         showModal("Item Adicionado!", "#00b400");
         updateLengthCart();
         fullReset();
@@ -192,8 +194,6 @@ const addCart = (ingredients, price) => {
 
 const calulation = (checkBox, price) => {
     const addPrice = price;
-    console.log(actualPrice);
-    console.log(addPrice);
 
     const incrementValue = (value, increment) => {
         return value + increment;
@@ -224,9 +224,14 @@ const addItemToCart = () => {
     }
 
     cart.push(food);
+    console.log(cart);
     showModal("Item Adicionado!", "#00b400");
 
-    ingredients.querySelectorAll("input").forEach((cb) => (cb.checked = false));
+    ingredients.querySelectorAll("input").forEach((cb) => {
+        cb.checked = false;
+        cb.disabled = false;
+    });
+    addList.classList.remove("disabled");
     checkBoxNotAdd.checked = false;
 
     updateLengthCart();
@@ -369,7 +374,7 @@ const confirmToFood = () => {
         adress = "Retirada no local";
     }
 
-    const message = `Boa noite! Me chamo ${name} e gostaria de fazer um pedido;\n\nPedido: ${food};\n\nNo valor final de: ${formatCurrency(
+    const message = `Boa noite! Me chamo ${name} e gostaria de fazer um pedido;\n\nPedido:\n${food}\nNo valor final de: ${formatCurrency(
         endValue
     )};\n\n${adress};\n\nForma de pagamento: ${pagamet}`;
 
@@ -392,19 +397,30 @@ const getFood = () => {
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
 
-    cart.map((item) => {
+    for (let i = 0; i < cart.length; i++) {
+        const item = cart[i];
         let add = "";
 
         if (item.ingredients?.length > 0) {
             const items = item.ingredients.map((ingredient) => {
-                return `${ingredient}`;
+                return ` ${ingredient}`;
             });
 
-            add = ` Adicionais: (${items}).`;
+            add = ` Adicionais: (${items})`;
         }
 
-        foodItems += `\n${capitalize(item.name)}, ${add} Preço: ${item.price}`;
-    });
+        if (item.category != "bebidas") {
+            foodItems += `*${
+                i + 1
+            }.* Crepe de ${item.name.toLowerCase()} ${add}. ${formatCurrency(
+                item.price
+            )};\n`;
+        } else {
+            foodItems += `*${i + 1}.* ${capitalize(
+                item.name
+            )} ${add}. ${formatCurrency(item.price)};\n`;
+        }
+    }
 
     return foodItems;
 };
@@ -507,6 +523,18 @@ adressClient.addEventListener("input", () => {
     calulationTotalValue();
     deliveryPrice.textContent =
         value == "" ? "R$3,00 - R$5,00" : formatCurrency(deliveryValue);
+});
+
+checkBoxNotAdd.addEventListener("change", () => {
+    const inpusts = ingredients.querySelectorAll("input");
+    if (checkBoxNotAdd.checked) {
+        addList.classList.add("disabled");
+        inpusts.forEach((input) => (input.disabled = true));
+    } else {
+        addList.classList.remove("disabled");
+        inpusts.forEach((input) => (input.disabled = false));
+    }
+    console.log(inpusts);
 });
 
 notAdress.addEventListener("change", () => {

@@ -4,7 +4,7 @@ const produtos = [
         produtos: [
             {
                 imagem: "./assets/crepes/salgados/queijo.jpg",
-                titulo: "Crepe de queijo",
+                titulo: "Queijo",
                 preco: 10,
                 descricao: "Catupiry, mussarela e oregano",
                 categoria: "salgado",

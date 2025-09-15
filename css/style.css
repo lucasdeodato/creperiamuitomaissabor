@@ -265,6 +265,10 @@ main section {
     font-weight: 500;
 }
 
+#list-add.disabled .add {
+    opacity: 0.5;
+}
+
 #add-ingredients .add {
     margin-bottom: 0.5rem;
     border-bottom: solid 1px #c1c1c1;
