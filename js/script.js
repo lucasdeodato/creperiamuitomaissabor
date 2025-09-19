@@ -329,40 +329,46 @@ const updateTotalValue = (price) => {
         formatCurrency(deliveryValue);
 };
 
-const confirmToFood = () => {
+const validationCart = () => {
     if (!isOpen) {
         showModal("Creperia fechada!", "#ff2828");
         return;
     }
 
-    if (cart.length == 0) {
+    if (cart.length < 1) {
         showModal("Carrinho vazio.", "#ff2828");
         return;
     }
 
+    const errorName = nameClient.nextElementSibling;
+    const errorAdress = adressClient.nextElementSibling;
+    const pagamet = pagamentClient.options[pagamentClient.selectedIndex].text;
+
     if (nameClient.value == "") {
-        nameClient.nextElementSibling.classList.add("show");
+        errorName.classList.add("show");
         return;
     }
 
-    nameClient.nextElementSibling.classList.remove("show");
+    errorName.classList.remove("show");
 
     if (!notAdress.checked) {
         if (adressClient.value == "") {
-            adressClient.nextElementSibling.classList.add("show");
+            errorAdress.classList.add("show");
             return;
         }
     }
 
-    adressClient.nextElementSibling.classList.remove("show");
-
-    const pagamet = pagamentClient.options[pagamentClient.selectedIndex].text;
+    errorAdress.classList.remove("show");
 
     if (pagamet == "") {
         pagamentClient.nextElementSibling.classList.add("show");
         return;
     }
 
+    confirmToFood(pagamet);
+};
+
+const confirmToFood = (pagamet) => {
     const name = nameClient.value;
     adress = adressClient.value;
     const food = getFood();
@@ -486,7 +492,7 @@ const observer = new IntersectionObserver(
 );
 
 // EVENTOS
-confirmFood.addEventListener("click", confirmToFood);
+confirmFood.addEventListener("click", validationCart);
 
 // main.addEventListener("wheel", (e) => {
 //     if (e.deltaY > 0 && currentIndex < pages.length - 1) {

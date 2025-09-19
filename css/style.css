@@ -124,11 +124,13 @@ main {
     overflow-x: scroll;
 }
 
-main {
+main,
+section {
     scrollbar-width: none; /* Firefox */
 }
 
-main::-webkit-scrollbar {
+main::-webkit-scrollbar,
+section::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Edge */
 }
 
@@ -142,6 +144,8 @@ main section {
     flex: 0 0 100%;
     scroll-snap-align: start;
     padding: 1rem;
+    max-height: 600px;
+    overflow: auto;
 }
 
 .list {

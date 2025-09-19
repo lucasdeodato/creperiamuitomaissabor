@@ -5,9 +5,6 @@ const today = day.getDay();
 let dayOpen;
 
 switch (today) {
-    case 0:
-        dayOpen = true;
-        break;
     case 4:
         dayOpen = true;
         break;
@@ -22,7 +19,9 @@ switch (today) {
         break;
 }
 
-const isOpen = newHour >= 18 && newHour <= 22 && dayOpen;
+console.log(newHour);
+
+const isOpen = newHour >= 18 && newHour < 22 && dayOpen;
 const isNearClose = isOpen && newHour == 22 && newMiutes >= 30;
 
 export { isOpen, isNearClose };
