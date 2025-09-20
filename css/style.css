@@ -144,7 +144,7 @@ main section {
     flex: 0 0 100%;
     scroll-snap-align: start;
     padding: 1rem;
-    max-height: 600px;
+    max-height: 700px;
     overflow: auto;
 }
 

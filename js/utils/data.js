@@ -142,6 +142,20 @@ const produtos = [
         titulo: "Refrigerantes",
         produtos: [
             {
+                imagem: "./assets/bebidas/refrigerantes/coca_1l.jpg",
+                titulo: "Coca cola pet 1l",
+                preco: 10,
+                descricao: "Coca cola pet 1 litro",
+                categoria: "bebidas",
+            },
+            {
+                imagem: "./assets/bebidas/refrigerantes/guarana_1l.jpg",
+                titulo: "Guaraná pet 1l",
+                preco: 8,
+                descricao: "Guraná antartica pet 1 litro",
+                categoria: "bebidas",
+            },
+            {
                 imagem: "./assets/bebidas/refrigerantes/coca.jpg",
                 titulo: "Coca cola",
                 preco: 6,
