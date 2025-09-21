@@ -19,8 +19,6 @@ switch (today) {
         break;
 }
 
-console.log(newHour);
-
 const isOpen = newHour >= 18 && newHour < 22 && dayOpen;
 const isNearClose = isOpen && newHour == 22 && newMiutes >= 30;
 

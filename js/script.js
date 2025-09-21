@@ -1,7 +1,7 @@
 // Variaeis
 import { additional, produtos, deliveryAdress } from "./utils/data.js";
 import { isNearClose } from "./utils/isOpen.js";
-import { formatCurrency } from "./utils/numbers.js";
+import { formatCurrency, sendMessage, clearText } from "./utils/changeDatas.js";
 const isOpen = true;
 
 const body = document.body;
@@ -50,6 +50,7 @@ const showProducts = () => {
         list.forEach((card) => {
             const article = document.createElement("article");
             article.classList.add("card");
+            const price = formatCurrency(card.preco);
             article.innerHTML = `
                 <div class="details">
                     <div class="image-card">
@@ -61,9 +62,7 @@ const showProducts = () => {
                     <div class="info">
                         <h3 class="name-crepe">
                             ${card.titulo}
-                            <span class="price">${formatCurrency(
-                                card.preco
-                            )}</span>
+                            <span class="price">${price}</span>
                         </h3>
                         <p class="description">
                             ${card.descricao}
@@ -180,7 +179,7 @@ const showAddIngredients = (card) => {
 const addCart = (ingredients, price) => {
     if (!ingredients) {
         cart.push(food);
-        console.log(cart);
+        console.log("Carrinho: " + cart);
         showModal("Item Adicionado!", "#00b400");
         updateLengthCart();
         fullReset();
@@ -389,13 +388,6 @@ const confirmToFood = (pagamet) => {
     window.location.reload();
 };
 
-const sendMessage = (message) => {
-    const messageFormat = encodeURIComponent(message);
-    const phone = 5583996675663;
-
-    window.open(`https://wa.me/${phone}?text=${messageFormat}`);
-};
-
 const getFood = () => {
     let foodItems = "";
 
@@ -463,6 +455,7 @@ const observerHour = () => {
     }, 500);
 };
 
+// Feito por IA
 const listenerHour = new IntersectionObserver((e) => {
     const isDisplay = e[0].isIntersecting;
     if (isDisplay) {
@@ -472,7 +465,6 @@ const listenerHour = new IntersectionObserver((e) => {
     }
 });
 
-// Feito por IA
 const observer = new IntersectionObserver(
     (entries) => {
         entries.forEach((entry) => {
@@ -517,7 +509,9 @@ navigationButtons.forEach((button, index) => {
 adressClient.addEventListener("input", () => {
     const value = adressClient.value.toLowerCase();
     const isMoreValue = deliveryAdress.some((adress) => {
-        if (value.includes(adress)) {
+        const textClear = clearText(value);
+        const addressClear = clearText(adress);
+        if (textClear.includes(addressClear)) {
             return true;
         } else {
             return false;
