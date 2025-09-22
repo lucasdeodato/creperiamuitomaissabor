@@ -303,7 +303,8 @@ main section {
     height: 1.2rem;
 }
 
-#add-ingredients button {
+#add-ingredients button,
+#suco button {
     display: flex;
     margin-left: auto;
     padding: 0.5rem 1rem;
@@ -314,7 +315,8 @@ main section {
     cursor: pointer;
 }
 
-#add-ingredients button:active {
+#add-ingredients button,
+#suco button {
     background-color: #fda026;
 }
 
@@ -525,4 +527,29 @@ main section {
 
 #float-hour.close {
     background-color: rgba(202, 0, 0);
+}
+
+#drinks {
+    max-width: 300px;
+}
+
+#drinks h2 {
+    font-size: 1.2rem;
+    font-weight: 400;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+#drinks-form .box-input {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+    border-bottom: solid 1px #c1c1c1;
+}
+
+#drinks-form .box-input input {
+    width: 1rem;
+    height: 1rem;
 }

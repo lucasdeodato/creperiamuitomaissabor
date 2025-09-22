@@ -30,6 +30,7 @@ const confirmFood = document.querySelector("#confirm-food");
 const modal = document.querySelector("#modal");
 const text = document.querySelector("#text");
 const checkBoxNotAdd = document.querySelector("#not-add");
+const juyces = document.querySelector("#suco");
 
 const cart = [];
 let food = {};
@@ -101,7 +102,8 @@ const showProducts = () => {
 const showAdd = () => {
     additional.forEach((itemAdd) => {
         const div = document.createElement("div");
-        div.className = itemAdd.class + " hide";
+        div.id = itemAdd.class;
+        div.className = " hide";
 
         itemAdd.adds.forEach((item) => {
             const divAdd = document.createElement("div");
@@ -156,20 +158,29 @@ const showAddIngredients = (card) => {
     const name = card.titulo;
     priceOrigin = card.preco;
 
-    if (category != "bebidas") {
-        ingredients = addIngredients.querySelector(`.${category}`);
-    } else {
+    console.log(category);
+
+    if (category == "refri") {
         ingredients = null;
+    } else {
+        ingredients = overlay.querySelector(`#${category}`);
     }
+
+    console.log(ingredients);
 
     food.name = name;
     food.price = priceOrigin;
     food.category = category;
 
     if (ingredients) {
+        if (ingredients.id == "suco") {
+            addIngredients.classList.add("hide");
+        } else {
+            addIngredients.classList.remove("hide");
+        }
+
         overlay.classList.remove("hide");
         body.classList.add("no-scroll");
-        addIngredients.classList.remove("hide");
         ingredients.classList.remove("hide");
     }
 
@@ -562,6 +573,24 @@ notAdress.addEventListener("change", () => {
 
 overlay.addEventListener("click", function ({ target }) {
     if (this != target || !addIngredients.classList.contains("hide")) return;
+    fullReset();
+});
+
+juyces.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const input = juyces.querySelector("input:checked");
+
+    food.ingredients = [input.value];
+
+    cart.push(food);
+    console.log(cart);
+    showModal("Item Adicionado!", "#00b400");
+
+    ingredients.querySelectorAll("input").forEach((rd) => {
+        rd.checked = false;
+    });
+
+    updateLengthCart();
     fullReset();
 });
 
