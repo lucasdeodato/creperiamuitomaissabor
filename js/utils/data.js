@@ -1,0 +1,300 @@
+const produtos = [
+    {
+        titulo: "Crepes Salgados",
+        produtos: [
+            {
+                imagem: "./assets/crepes/salgados/queijo.jpg",
+                titulo: "Queijo",
+                preco: 10,
+                descricao: "Catupiry, mussarela e oregano",
+                categoria: "salgado",
+            },
+            {
+                imagem: "./assets/crepes/salgados/pizza.jpg",
+                titulo: "Pizza",
+                preco: 14,
+                descricao: "Catupiry, presunto, mussarela, tomate e oregano",
+                categoria: "salgado",
+            },
+            {
+                imagem: "./assets/crepes/salgados/pizza_de_calabresa.jpg",
+                titulo: "Pizza com calabresa",
+                preco: 15,
+                descricao:
+                    "Catupiry, presunto, mussarela, molho, oregano e calabresa",
+                categoria: "salgado",
+            },
+            {
+                imagem: "./assets/crepes/salgados/frango.jpg",
+                titulo: "Frango",
+                preco: 12,
+                descricao: "Catupiry, mussarela e milho",
+                categoria: "salgado",
+            },
+            {
+                imagem: "./assets/crepes/salgados/frango_bacon.jpg",
+                titulo: "Frango com bacon",
+                preco: 14,
+                descricao: "Catupiry, bacon, mussarela, milho e batata palha",
+                categoria: "salgado",
+            },
+            {
+                imagem: "./assets/crepes/salgados/frango_bacon.jpg",
+                titulo: "Frango com calabresa",
+                preco: 15,
+                descricao:
+                    "Catupiry, calabresa, mussarela, milho e batata palha",
+                categoria: "salgado",
+            },
+            {
+                imagem: "./assets/crepes/salgados/calabresa.jpg",
+                titulo: "Calabresa",
+                preco: 12,
+                descricao: "Catupiry e mussarela",
+                categoria: "salgado",
+            },
+            {
+                imagem: "./assets/crepes/salgados/carne_seca.jpg",
+                titulo: "Carne seca",
+                preco: 15,
+                descricao: "Catupiry e mussarela",
+                categoria: "salgado",
+            },
+            {
+                imagem: "./assets/crepes/salgados/carne_seca_nata.jpg",
+                titulo: "Carne com nata",
+                preco: 16,
+                descricao: "Carne seca, nata e mussarela",
+                categoria: "salgado",
+            },
+            {
+                imagem: "./assets/crepes/salgados/carne_seca_nata.jpg",
+                titulo: "Carne com bacon",
+                preco: 16,
+                descricao: "Catupiry, mussarela e bacon",
+                categoria: "salgado",
+            },
+            {
+                imagem: "./assets/crepes/salgados/carne_seca_nata.jpg",
+                titulo: "Carne com calabresa",
+                preco: 16,
+                descricao: "Carne seca, calabresa, mussarela e catupiry",
+                categoria: "salgado",
+            },
+            {
+                imagem: "./assets/crepes/salgados/amoda.jpg",
+                titulo: "Amoda da casa",
+                preco: 20,
+                descricao:
+                    "Catupiry, mussarela , milho, carne seca, bacon, calabresa, batata palha e cebola",
+                categoria: "salgado",
+            },
+        ],
+    },
+    {
+        titulo: "Crepes Doces",
+        produtos: [
+            {
+                imagem: "./assets/crepes/doces/julieta_romeu.jpg",
+                titulo: "Romeu e julieta",
+                preco: 10,
+                descricao: "Goiabada com mussarela",
+                categoria: "doce",
+            },
+            {
+                imagem: "./assets/crepes/doces/banana_canela.jpg",
+                titulo: "Banana com canela",
+                preco: 10,
+                descricao: "Banana e canela",
+                categoria: "doce",
+            },
+            {
+                imagem: "./assets/crepes/doces/banana_nutella.jpg",
+                titulo: "Banana com nutella",
+                preco: 12,
+                descricao: "Banana e nutella",
+                categoria: "doce",
+            },
+            {
+                imagem: "./assets/crepes/doces/nutella.jpg",
+                titulo: "Nutella",
+                preco: 12,
+                descricao: "Nutella",
+                categoria: "doce",
+            },
+            {
+                imagem: "./assets/crepes/doces/nutella_queijo.jpg",
+                titulo: "Nutella com queijo",
+                preco: 16,
+                descricao: "Nutella e queijo",
+                categoria: "doce",
+            },
+            {
+                imagem: "./assets/crepes/doces/nutella_morango.jpg",
+                titulo: "Nutella com morango",
+                preco: 17,
+                descricao: "Nutella com morango",
+                categoria: "doce",
+            },
+        ],
+    },
+    {
+        titulo: "Refrigerantes",
+        produtos: [
+            {
+                imagem: "./assets/bebidas/refrigerantes/coca_1l.jpg",
+                titulo: "Coca cola pet 1l",
+                preco: 10,
+                descricao: "Coca cola pet 1 litro",
+                categoria: "refri",
+            },
+            {
+                imagem: "./assets/bebidas/refrigerantes/guarana_1l.jpg",
+                titulo: "Guaraná pet 1l",
+                preco: 8,
+                descricao: "Guraná antartica pet 1 litro",
+                categoria: "refri",
+            },
+            {
+                imagem: "./assets/bebidas/refrigerantes/coca.jpg",
+                titulo: "Coca cola",
+                preco: 6,
+                descricao: "Coca cola lata 350ml",
+                categoria: "refri",
+            },
+            {
+                imagem: "./assets/bebidas/refrigerantes/coca_zero.jpg",
+                titulo: "Coca cola zero",
+                preco: 6,
+                descricao: "Coca cola zero lata 350ml",
+                categoria: "refri",
+            },
+            {
+                imagem: "./assets/bebidas/refrigerantes/guarana.jpg",
+                titulo: "Guarana",
+                preco: 6,
+                descricao: "Guarana lata 350ml",
+                categoria: "refri",
+            },
+            {
+                imagem: "./assets/bebidas/refrigerantes/fanta_uva.jpg",
+                titulo: "Fanta uva",
+                preco: 6,
+                descricao: "Fanta uva lata 350ml",
+                categoria: "refri",
+            },
+            {
+                imagem: "./assets/bebidas/refrigerantes/fanta_laranja.jpg",
+                titulo: "Fanta laranja",
+                preco: 6,
+                descricao: "Fanta laranja lata 350ml",
+                categoria: "refri",
+            },
+        ],
+    },
+    {
+        titulo: "Sucos",
+        produtos: [
+            {
+                imagem: "./assets/bebidas/sucos/maracuja.jpg",
+                titulo: "Suco de maracuja",
+                preco: 6,
+                descricao: "300ml",
+                categoria: "suco",
+            },
+            {
+                imagem: "./assets/bebidas/sucos/manga.jpg",
+                titulo: "Suco de manga",
+                preco: 6,
+                descricao: "300ml",
+                categoria: "suco",
+            },
+            {
+                imagem: "./assets/bebidas/sucos/acerola.jpg",
+                titulo: "Suco de acerola",
+                preco: 6,
+                descricao: "300ml",
+                categoria: "suco",
+            },
+            {
+                imagem: "./assets/bebidas/sucos/morango.jpg",
+                titulo: "Suco de morango",
+                preco: 6,
+                descricao: "300ml",
+                categoria: "suco",
+            },
+            {
+                imagem: "./assets/bebidas/sucos/goiaba.jpg",
+                titulo: "Suco de goiaba",
+                preco: 6,
+                descricao: "300ml",
+                categoria: "suco",
+            },
+            {
+                imagem: "./assets/bebidas/sucos/abacaxi.jpg",
+                titulo: "Suco de abacaxi",
+                preco: 6,
+                descricao: "300ml",
+                categoria: "suco",
+            },
+            {
+                imagem: "./assets/bebidas/sucos/caju.jpg",
+                titulo: "Suco de caju",
+                preco: 6,
+                descricao: "300ml",
+                categoria: "suco",
+            },
+            {
+                imagem: "./assets/bebidas/sucos/graviola.jpg",
+                titulo: "Suco de graviola",
+                preco: 6,
+                descricao: "300ml",
+                categoria: "suco",
+            },
+            {
+                imagem: "./assets/bebidas/sucos/caja.jpg",
+                titulo: "Suco de caja",
+                preco: 6,
+                descricao: "300ml",
+                categoria: "suco",
+            },
+        ],
+    },
+];
+
+const additional = [
+    {
+        class: "salgado",
+        adds: [
+            { name: "Cebola", price: 0 },
+            { name: "Batata palha", price: 1 },
+            { name: "Calabresa", price: 2 },
+            { name: "Bacon", price: 2 },
+            { name: "Milho verde", price: 1 },
+            { name: "Frango", price: 2 },
+            { name: "Carne", price: 3 },
+            { name: "Mussarela", price: 3 },
+            { name: "Presunto", price: 2 },
+            { name: "Nata", price: 2 },
+        ],
+    },
+    {
+        class: "doce",
+        adds: [
+            { name: "Goiabada", price: 2 },
+            { name: "Nutella", price: 5 },
+            { name: "Morango", price: 4 },
+            { name: "Mussarela", price: 3 },
+            { name: "Banana", price: 1 },
+        ],
+    },
+];
+
+const deliveryAdress = [
+    "conjunto",
+    "alto das neves",
+    "vila moco",
+    "balduino de carvalho",
+];
+
+export { produtos, additional, deliveryAdress };

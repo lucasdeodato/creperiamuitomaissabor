@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Creperia muito + sabor</title>
+        <!-- Icon -->
+        <link
+            rel="shortcut icon"
+            href="assets/favicon/favicon.ico"
+            type="image/x-icon"
+        />
+        <!-- Css -->
+        <link rel="stylesheet" href="css/style.css" />
+        <!-- Javascript -->
+        <script src="js/script.js" type="module" defer></script>
+        <!-- Font Awesome -->
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+            integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+    </head>
+
+    <body>
+        <header id="header">
+            <h1>Creperia <br />muito + sabor</h1>
+            <p class="adress">Delivery | Retirada no local</p>
+            <p id="hour">
+                <i class="fas fa-clock"></i>
+                18:00 - 22:00 | Qui - Sab
+            </p>
+            <img
+                src="assets/favicon/android-chrome-192x192.png"
+                alt="Logo Creperita muito mais sabor"
+                class="logo"
+            />
+        </header>
+        <nav id="page-navigation">
+            <div class="container">
+                <ul id="pages">
+                    <li data-category="savory" class="active">
+                        Crepes salgados
+                    </li>
+                    <li data-category="candy">Crepes doces</li>
+                    <li data-category="drinks">Refrigerantes</li>
+                    <li data-category="juices">Sucos</li>
+                </ul>
+            </div>
+        </nav>
+        <div class="container">
+            <main></main>
+        </div>
+
+        <footer id="footer">
+            <div class="container">
+                <section>
+                    <h4>Contatos</h4>
+                    <a href="https://wa.me/5583996675663">
+                        <i class="fa-brands fa-whatsapp"></i>
+                        Whatasapp
+                    </a>
+                    <a
+                        href="https://www.instagram.com/creperia_muitomaissabor/"
+                    >
+                        <i class="fa-brands fa-instagram"></i>
+                        Instagram
+                    </a>
+                </section>
+                <section>
+                    <h4>Desenvolvimento</h4>
+                    &copy; 2025 |
+                    <a href="http://instagram.com/eae_lucasd" target="_blank">
+                        Lucas Deodato
+                    </a>
+                </section>
+            </div>
+        </footer>
+
+        <button id="button-cart">
+            Abrir Carrinho
+            <i class="fas fa-shopping-cart"></i>
+            (<span id="length-cart">0</span>)
+        </button>
+
+        <section id="overlay" class="hide">
+            <article class="modal hide" id="add-ingredients">
+                <h2>Adicionais <span class="option">(opcional)</span></h2>
+                <div class="add">
+                    <label for="not-add">
+                        Sem adicionais
+                        <span class="check">
+                            <span class="price-ingredient">R$ 0,00</span>
+                            <input type="checkbox" id="not-add" />
+                        </span>
+                    </label>
+                </div>
+                <div id="list-add"></div>
+                <p class="value-end">
+                    Valor final:
+                    <span id="value-end">R$00,00</span>
+                </p>
+                <button id="confirm-add-cart">Confirmar</button>
+            </article>
+
+            <article id="suco" class="modal hide">
+                <h2>Selecione uma das opções a baixo:</h2>
+                <form id="drinks-form">
+                    <div class="box-input">
+                        <label for="water">À água</label>
+                        <input
+                            type="radio"
+                            name="drinks"
+                            id="water"
+                            value="Água"
+                            required
+                        />
+                    </div>
+                    <div class="box-input">
+                        <label for="milk">Ao Leite</label>
+                        <input
+                            type="radio"
+                            name="drinks"
+                            id="milk"
+                            value="Leite"
+                            required
+                        />
+                    </div>
+                    <button type="submit">Confirmar</button>
+                </form>
+            </article>
+
+            <article id="cart" class="modal hide">
+                <h2>
+                    Meu Carrinho
+                    <i class="fas fa-shopping-cart"></i>
+                </h2>
+                <ul id="list-items-cart"></ul>
+
+                <div id="info-client">
+                    <div class="box-input">
+                        <label for="name-client">Seu nome:</label>
+                        <input
+                            type="text"
+                            id="name-client"
+                            placeholder="Digite seu nome"
+                        />
+                        <p class="info-input">Nome obrigatório</p>
+                    </div>
+
+                    <div class="box-input">
+                        <label for="adress-client">Seu endereço:</label>
+                        <textarea
+                            id="adress-client"
+                            placeholder="Rua, número da casa e bairro*"
+                        ></textarea>
+                        <p class="info-input">Endereço obrigatório</p>
+                    </div>
+
+                    <div class="box-input">
+                        <label for="not-adress" class="not-adress">
+                            Retirada no local
+                            <input type="checkbox" id="not-adress" />
+                        </label>
+                    </div>
+
+                    <div class="box-input">
+                        <label for="pagament-client">Forma de pagamento:</label>
+                        <select id="pagament-client">
+                            <option value=""></option>
+                            <option value="Pix">Pix</option>
+                            <option value="Pix">Cartão de debito</option>
+                            <option value="Pix">Cartão de crédito</option>
+                            <option value="Pix">Dinheiro</option>
+                        </select>
+                        <p class="info-input">Forma de pegamento obrigatório</p>
+                    </div>
+                </div>
+
+                <footer class="footer-cart">
+                    <div>
+                        <p>Total:</p>
+                        <div id="total">
+                            <span class="total-value" id="total-value-button">
+                                <span id="total-value">R$00,00</span>
+                                <i class="fas fa-caret-down"></i>
+                            </span>
+
+                            <div id="details-total">
+                                <p>Pedido: <span class="food">R$00,00</span></p>
+                                <p>
+                                    Entrega:
+                                    <span class="delivery">R$3,00</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <button id="confirm-food">Confirmar pedido</button>
+                </footer>
+                <p class="taxa">
+                    Taxa de entrega:
+                    <span id="price-delivery">R$3,00 - R$5,00</span>
+                </p>
+            </article>
+        </section>
+
+        <article id="modal">
+            <p id="text"></p>
+        </article>
+        <article id="float-hour">Fechado</article>
+    </body>
+</html>
