@@ -1,6 +1,6 @@
 // Variaeis
 import { additional, produtos, deliveryAdress } from "./utils/data.js";
-import { isOpen, isNearClose } from "./utils/isOpen.js";
+import { isOpen, isNearClose, hourOpen, hourClose } from "./utils/isOpen.js";
 import { formatCurrency, sendMessage, clearText } from "./utils/changeDatas.js";
 
 const body = document.body;
@@ -157,7 +157,7 @@ const showAddIngredients = (card) => {
     const name = card.titulo;
     priceOrigin = card.preco;
 
-    (category);
+    category;
 
     if (category == "refri") {
         ingredients = null;
@@ -165,7 +165,7 @@ const showAddIngredients = (card) => {
         ingredients = overlay.querySelector(`#${category}`);
     }
 
-    (ingredients);
+    ingredients;
 
     food.name = name;
     food.price = priceOrigin;
@@ -189,7 +189,7 @@ const showAddIngredients = (card) => {
 const addCart = (ingredients, price) => {
     if (!ingredients) {
         cart.push(food);
-        ("Carrinho: " + cart);
+        "Carrinho: " + cart;
         showModal("Item Adicionado!", "#00b400");
         updateLengthCart();
         fullReset();
@@ -233,7 +233,7 @@ const addItemToCart = () => {
     }
 
     cart.push(food);
-    (cart);
+    cart;
     showModal("Item Adicionado!", "#00b400");
 
     ingredients.querySelectorAll("input").forEach((cb) => {
@@ -283,7 +283,7 @@ const showItemsCart = () => {
                 string += `${text}. `;
             });
 
-            console.log(string)
+            console.log(string);
 
             ingredientsList = `Adicionais: ${string.toLowerCase()}`;
             string = "";
@@ -294,8 +294,8 @@ const showItemsCart = () => {
                         <h3 class="name-item">
                             ${item.name}
                         <span class="price-item">${formatCurrency(
-            item.price
-        )}</span>
+                            item.price
+                        )}</span>
                         </h3>
                         ${ingredientsList}
                 </div>
@@ -383,7 +383,7 @@ const confirmToFood = (pagamet) => {
     const name = nameClient.value;
     adress = adressClient.value;
     const food = getFood();
-    (getFood());
+    getFood();
 
     if (adress) {
         adress = "Para o endereço: " + adress;
@@ -420,14 +420,13 @@ const getFood = () => {
         }
 
         if (item.category != "bebidas") {
-            foodItems += `*${i + 1
-                }.* ${item.name} ${add}. ${formatCurrency(
-                    item.price
-                )};\n`;
+            foodItems += `*${i + 1}.* ${item.name} ${add}. ${formatCurrency(
+                item.price
+            )};\n`;
         } else {
-            foodItems += `*${i + 1}.* ${capitalize(
-                item.name
-            ) + add ? add[0] : add} ${formatCurrency(item.price)};\n`;
+            foodItems += `*${i + 1}.* ${
+                capitalize(item.name) + add ? add[0] : add
+            } ${formatCurrency(item.price)};\n`;
         }
     }
 
@@ -545,7 +544,7 @@ checkBoxNotAdd.addEventListener("change", () => {
         addList.classList.remove("disabled");
         inpusts.forEach((input) => (input.disabled = false));
     }
-    (inpusts);
+    inpusts;
 });
 
 notAdress.addEventListener("change", () => {
@@ -583,7 +582,7 @@ juyces.addEventListener("submit", (e) => {
     food.ingredients = [input.value];
 
     cart.push(food);
-    (cart);
+    cart;
     showModal("Item Adicionado!", "#00b400");
 
     ingredients.querySelectorAll("input").forEach((rd) => {
@@ -604,6 +603,7 @@ totalValueButton.addEventListener("click", () =>
 
 floatHour.className = isOpen ? "open" || floatHour : "close";
 floatHour.textContent = isOpen ? "Aberto" || floatHour : "Fechado";
+hour.textContent = `${hourOpen}:00 - ${hourClose}:00 | Qui - Sab`;
 hour.className = isOpen ? "open" : "close";
 
 listenerHour.observe(hour);
