@@ -23,7 +23,7 @@ switch (today) {
         break;
 }
 
-const isOpen = newHour >= hourClose && newHour < hourClose && dayOpen;
-const isNearClose = isOpen && newHour == 22 && newMiutes >= 30;
+const isOpen = newHour >= hourOpen && newHour < hourClose && dayOpen;
+const isNearClose = isOpen && newHour == hourClose && newMiutes >= 30;
 
 export { isOpen, isNearClose, hourOpen, hourClose };
