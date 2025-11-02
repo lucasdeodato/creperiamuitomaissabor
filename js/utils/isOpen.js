@@ -7,6 +7,9 @@ let hourOpen = 18;
 let hourClose = 22;
 
 switch (today) {
+    case 0:
+        dayOpen = true;
+        break;
     case 4:
         dayOpen = true;
         break;
