@@ -28,7 +28,7 @@ const produtos = [
                 imagem: "./assets/crepes/salgados/frango.jpg",
                 titulo: "Frango",
                 preco: 12,
-                descricao: "Catupiry, mussarela e milho",
+                descricao: "Catupiry, mussarela, milho e batata palha",
                 categoria: "salgado",
             },
             {
@@ -50,7 +50,7 @@ const produtos = [
                 imagem: "./assets/crepes/salgados/calabresa.jpg",
                 titulo: "Calabresa",
                 preco: 12,
-                descricao: "Catupiry e mussarela",
+                descricao: "Catupiry, mussarela e cebola",
                 categoria: "salgado",
             },
             // {
@@ -86,7 +86,7 @@ const produtos = [
                 titulo: "Amoda da casa",
                 preco: 20,
                 descricao:
-                    "Catupiry, mussarela , milho, carne seca, bacon, calabresa, batata palha e cebola",
+                    "Catupiry, mussarela, frango, presunto , milho, bacon, calabresa, batata palha, e cebola ",
                 categoria: "salgado",
             },
         ],
