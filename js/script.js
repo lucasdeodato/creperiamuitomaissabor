@@ -24,7 +24,6 @@ const addIngredients = document.querySelector("#add-ingredients");
 const addList = document.querySelector("#list-add");
 const valueEnd = document.querySelector("#value-end");
 const confirmAddCart = document.querySelector("#confirm-add-cart");
-const totalValueButton = document.querySelector("#total-value-button");
 const confirmFood = document.querySelector("#confirm-food");
 const modal = document.querySelector("#modal");
 const text = document.querySelector("#text");
@@ -596,10 +595,6 @@ juyces.addEventListener("submit", (e) => {
 confirmAddCart.addEventListener("click", addItemToCart);
 
 buttonCart.addEventListener("click", showItemsCart);
-
-totalValueButton.addEventListener("click", () =>
-    detailsTotal.classList.toggle("show")
-);
 
 floatHour.className = isOpen ? "open" || floatHour : "close";
 floatHour.textContent = isOpen ? "Aberto" || floatHour : "Fechado";

@@ -430,37 +430,31 @@ main section {
 
 .footer-cart > div {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
 }
 
-#total {
+/* #total {
     position: relative;
-}
+} */
 
 .footer-cart > div > p {
     font-weight: bold;
 }
 
 .total-value {
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    text-align: right;
     font-weight: 600;
+    width: 100%;
+    display: block;
 }
 
 #details-total {
-    position: absolute;
-    top: 100%;
-    right: 0;
     font-size: 0.7rem;
     background-color: #fff;
     text-align: left;
     width: 100px;
     padding: 0.1rem;
-    transform-origin: top;
-    transform: scaleY(0);
     transition: 0.5s;
 }
 
