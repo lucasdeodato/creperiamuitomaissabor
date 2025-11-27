@@ -332,7 +332,7 @@ const calulationTotalValue = () => {
 };
 
 const updateTotalValue = (price) => {
-    endValue = price + deliveryValue;
+    endValue = parseFloat(price + deliveryValue);
     totalValue.textContent = formatCurrency(endValue);
     detailsTotal.querySelector(".food").textContent = formatCurrency(price);
     detailsTotal.querySelector(".delivery").textContent =
@@ -352,7 +352,7 @@ const validationCart = () => {
 
     const errorName = nameClient.nextElementSibling;
     const errorAdress = adressClient.nextElementSibling;
-    const pagamet = pagamentClient.options[pagamentClient.selectedIndex].text;
+    const pagamet = pagamentClient.options[pagamentClient.selectedIndex].value;
 
     if (nameClient.value == "") {
         errorName.classList.add("show");
@@ -378,11 +378,10 @@ const validationCart = () => {
     confirmToFood(pagamet);
 };
 
-const confirmToFood = (pagamet) => {
+const confirmToFood = async (pagamet) => {
     const name = nameClient.value;
     adress = adressClient.value;
     const food = getFood();
-    getFood();
 
     if (adress) {
         adress = "Para o endereço: " + adress;
@@ -395,8 +394,7 @@ const confirmToFood = (pagamet) => {
     )};\n\n${adress};\n\nForma de pagamento: ${pagamet}`;
 
     sendMessage(message);
-
-    window.location.reload();
+    showModal("Pedido finalizado!", "#00b400");
 };
 
 const getFood = () => {

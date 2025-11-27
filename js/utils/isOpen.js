@@ -6,10 +6,12 @@ let dayOpen;
 let hourOpen = 18;
 let hourClose = 22;
 
+console.log(today);
+
 switch (today) {
-    case 4:
-        dayOpen = true;
-        break;
+    // case 4:
+    //     dayOpen = true;
+    //     break;
     case 5:
         dayOpen = true;
         hourClose = 23;
