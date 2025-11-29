@@ -12,14 +12,14 @@ switch (today) {
     // case 4:
     //     dayOpen = true;
     //     break;
-    case 5:
-        dayOpen = true;
-        hourClose = 23;
-        break;
-    case 6:
-        dayOpen = true;
-        hourClose = 23;
-        break;
+    // case 5:
+    //     dayOpen = true;
+    //     hourClose = 23;
+    //     break;
+    // case 6:
+    //     dayOpen = true;
+    //     hourClose = 23;
+    //     break;
     default:
         dayOpen = false;
         break;
